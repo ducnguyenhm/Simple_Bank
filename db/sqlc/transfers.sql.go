@@ -9,7 +9,7 @@ import (
 	"context"
 )
 
-const createTranfer = `-- name: CreateTranfer :one
+const createTransfer = `-- name: CreateTransfer :one
 INSERT INTO transfers (
     from_account_id,
     to_account_id,
@@ -20,14 +20,14 @@ INSERT INTO transfers (
 RETURNING id, from_account_id, to_account_id, amount, created_at
 `
 
-type CreateTranferParams struct {
+type CreateTransferParams struct {
 	FromAccountID int64
 	ToAccountID   int64
 	Amount        int64
 }
 
-func (q *Queries) CreateTranfer(ctx context.Context, arg CreateTranferParams) (Transfer, error) {
-	row := q.db.QueryRowContext(ctx, createTranfer, arg.FromAccountID, arg.ToAccountID, arg.Amount)
+func (q *Queries) CreateTransfer(ctx context.Context, arg CreateTransferParams) (Transfer, error) {
+	row := q.db.QueryRowContext(ctx, createTransfer, arg.FromAccountID, arg.ToAccountID, arg.Amount)
 	var i Transfer
 	err := row.Scan(
 		&i.ID,
