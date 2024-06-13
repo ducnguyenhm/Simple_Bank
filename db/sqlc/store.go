@@ -62,6 +62,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 			ToAccountID:   arg.ToAccountID,
 			Amount:        arg.Amount,
 		})
+
 		if err != nil {
 			return err
 		}
@@ -80,6 +81,44 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 		})
 		if err != nil {
 			return err
+		}
+
+
+		if arg.FromAccountID < arg.ToAccountID {
+			result.FromAccount, err = q.AddUpdateAccount(ctx, AddUpdateAccountParams{
+				ID: arg.FromAccountID,
+				Amount: -arg.Amount, 
+			})	
+			if err != nil {
+				return err
+			}
+	
+			result.ToAccount, err = q.AddUpdateAccount(ctx, AddUpdateAccountParams{
+				ID: arg.ToAccountID,
+				Amount: arg.Amount, 
+			})	
+			
+			if err != nil {
+				return err
+			}
+		} else {
+			result.ToAccount, err = q.AddUpdateAccount(ctx, AddUpdateAccountParams{
+				ID: arg.ToAccountID,
+				Amount: arg.Amount, 
+			})	
+			
+			if err != nil {
+				return err
+			}
+
+			result.FromAccount, err = q.AddUpdateAccount(ctx, AddUpdateAccountParams{
+				ID: arg.FromAccountID,
+				Amount: -arg.Amount, 
+			})	
+			if err != nil {
+				return err
+			}
+	
 		}
 
 		return nil
