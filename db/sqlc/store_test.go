@@ -90,7 +90,7 @@ func TestTransferTx(t *testing.T){
 		diff2 := toAccount.Balance - account2.Balance
 		require.Equal(t, diff1, diff2)
 		require.True(t, diff1 > 0)
-		require.True(t, diff1%amount == 0) // 1 * amount, 2 * amount, 3 * amount, ..., n * amount
+		require.True(t, diff1%amount == 0) 
 
 		k := int(diff1 / amount)
 		require.True(t, k >= 1 && k <= n)
@@ -98,7 +98,7 @@ func TestTransferTx(t *testing.T){
 		existed[k] = true
 	}
 
-	// check the final updated balance
+
 	updatedAccount1, err := testQueries.GetAccount(context.Background(), account1.ID)
 	require.NoError(t, err)
 
