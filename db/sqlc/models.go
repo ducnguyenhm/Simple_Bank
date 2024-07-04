@@ -19,6 +19,7 @@ type Account struct {
 type Entry struct {
 	ID        int64
 	AccountID int64
+	// can be negative or positive
 	Amount    int64
 	CreatedAt time.Time
 }
@@ -27,6 +28,16 @@ type Transfer struct {
 	ID            int64
 	FromAccountID int64
 	ToAccountID   int64
-	Amount        int64
-	CreatedAt     time.Time
+	// must be positive
+	Amount    int64
+	CreatedAt time.Time
+}
+
+type User struct {
+	Username          string
+	HashedPassword    string
+	FullName          string
+	Email             string
+	PasswordChangedAt time.Time
+	CreatedAt         time.Time
 }
