@@ -17,6 +17,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+
+
 func TestGetAccountAPI(t *testing.T) {
 	account := randomAccount()
 	testCases := []struct {
@@ -76,7 +78,7 @@ func TestGetAccountAPI(t *testing.T) {
 	}
 	for i := range testCases {
 		tc := testCases[i]
-		t.Run(tc.name, func(t *testing.T){
+		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
 
@@ -94,9 +96,7 @@ func TestGetAccountAPI(t *testing.T) {
 
 		})
 
-	} 
-
-	
+	}
 
 }
 
